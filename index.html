@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Incharillar API Bot Controller</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      margin: 0;
+      padding: 20px;
+      background-color: #f4f4f4;
+    }
+    h1 {
+      color: #333;
+    }
+    button {
+      font-size: 16px;
+      padding: 10px 20px;
+      margin: 10px;
+      cursor: pointer;
+      border: none;
+      border-radius: 5px;
+    }
+    .start {
+      background-color: #4caf50;
+      color: white;
+    }
+    .stop {
+      background-color: #f44336;
+      color: white;
+    }
+    .start:hover {
+      background-color: #45a049;
+    }
+    .stop:hover {
+      background-color: #e53935;
+    }
+  </style>
+</head>
+<body>
+  <h1>Bot Controller</h1>
+  <p>Use the buttons below to control your bot:</p>
+  <button class="start" onclick="sendRequest('KEPT')">Turn On Bot</button>
+  <button class="stop" onclick="sendRequest('UNKEPT')">Turn Off Bot</button>
+  <p id="status"></p>
+
+  <script>
+    async function sendRequest(action) {
+      const statusElement = document.getElementById("status");
+      try {
+        statusElement.textContent = `Sending ${action} request...`;
+        const response = await fetch(`/GET/${action}`);
+        if (response.ok) {
+          const text = await response.text();
+          statusElement.textContent = text;
+        } else {
+          statusElement.textContent = `Error: ${response.status} ${response.statusText}`;
+        }
+      } catch (error) {
+        statusElement.textContent = `Error: ${error.message}`;
+      }
+    }
+  </script>
+</body>
+</html>
