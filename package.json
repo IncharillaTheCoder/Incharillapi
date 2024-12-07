@@ -1,0 +1,8 @@
+{
+  "version": 2,
+  "routes": [
+    { "src": "/GET/KEPT", "dest": "api/kept.ts" },
+    { "src": "/GET/UNKEPT", "dest": "api/kept.ts" },
+    { "src": "/", "dest": "/index.html" }
+  ]
+}
